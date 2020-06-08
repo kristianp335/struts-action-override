@@ -37,11 +37,6 @@ import javax.servlet.http.HttpSession;
 
 import org.osgi.service.component.annotations.Component;
 
-
-/**
- * @author kpatefield
- */
-
 @Component(
 	immediate=true,
 	property={
