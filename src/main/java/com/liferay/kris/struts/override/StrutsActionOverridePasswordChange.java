@@ -1,9 +1,12 @@
 package com.liferay.kris.struts.override;
 
+import com.liferay.demo.segments.context.contributor.SessionAbRequestContextContributor;
 import com.liferay.portal.action.UpdatePasswordAction;
 import com.liferay.portal.kernel.exception.NoSuchUserException;
 import com.liferay.portal.kernel.exception.UserLockoutException;
 import com.liferay.portal.kernel.exception.UserPasswordException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.CompanyConstants;
 import com.liferay.portal.kernel.model.Ticket;
@@ -50,8 +53,11 @@ public class StrutsActionOverridePasswordChange implements StrutsAction {
 	@Override
 	public String execute(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
 		
-		//Execute out print in console - Proof this works
-		System.out.println("execute method");
+		//Execute out print in logs - Proof this works
+		_log.debug(String.format("Custom StrutsAction implementation has been called"));
+		
+		//Place your logic from here onwards
+		//Standard update password logic included below
 
 		ThemeDisplay themeDisplay =
 			(ThemeDisplay)httpServletRequest.getAttribute(
@@ -123,7 +129,7 @@ public class StrutsActionOverridePasswordChange implements StrutsAction {
 
 				SessionErrors.add(httpServletRequest, exception.getClass());
 
-				return "portal.update_password";
+				return "portal.error";
 			}
 
 			PortalUtil.sendError(
@@ -293,5 +299,9 @@ public class StrutsActionOverridePasswordChange implements StrutsAction {
 			httpServletRequest, httpServletResponse, login, password1, false,
 			null);
 	}
+	
+	private static final Log _log = LogFactoryUtil.getLog(StrutsActionOverridePasswordChange.class);
+	
+	
 	
 }
